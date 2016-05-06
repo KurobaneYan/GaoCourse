@@ -15,7 +15,11 @@ public class Goal {
     private HashMap<String, Boolean> tasks;
 
     public Goal() {
+    }
 
+    public Goal(String name, String description) {
+        setName(name);
+        setDescription(description);
     }
 
     public int getId() {
