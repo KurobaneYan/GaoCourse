@@ -51,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
     private void populateUsersList() {
 
         ArrayList<Goal> goals = new ArrayList<>();
-        goals.add(new Goal("Goal1", "Some dec"));
-        goals.add(new Goal("Goal 2", "Some"));
-        goals.add(new Goal("TEST", "TESTED"));
+        for (int i = 0; i < 20; ++i) {
+            goals.add(new Goal("Goal " + String.valueOf(i), "Some description"));
+        }
 
         GoalsAdapter adapter = new GoalsAdapter(this, goals);
 
         Log.d("Goals", goals.toString());
 
-        ListView listView = (ListView) findViewById(R.id.lvGoals);
+        ListView listView = (ListView) findViewById(R.id.goals_list);
         if (listView != null) {
             listView.setAdapter(adapter);
         }
