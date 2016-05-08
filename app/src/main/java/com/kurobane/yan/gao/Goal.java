@@ -12,11 +12,15 @@ public class Goal {
     private HashMap<String, Integer> tasks;
 
     public Goal() {
+        setIsFinished(0);
+        setIsPunished(0);
     }
 
     public Goal(String name, String description) {
         setName(name);
         setDescription(description);
+        setIsFinished(0);
+        setIsPunished(0);
     }
 
     public int getId() {

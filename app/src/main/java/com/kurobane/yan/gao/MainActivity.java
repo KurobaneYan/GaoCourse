@@ -1,5 +1,6 @@
 package com.kurobane.yan.gao;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                     //dbHelper.deleteGoal(goals.get(0));
                     //dbHelper.addGoal(test);
-                    dbHelper.deleteGoal(test);
+                    Intent intent = new Intent(getApplicationContext(), AddGoalActivity.class);
+                    startActivity(intent);
                 }
             });
         }

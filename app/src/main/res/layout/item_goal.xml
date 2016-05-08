@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp" >
 
-    <TextView
-        android:id="@+id/goal_name"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/goal_name" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/goal_description"
-        android:layout_weight="1"
-        android:layout_width="0dp"
+        <TextView
+            android:id="@+id/goal_name"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/goal_name" />
+
+        <TextView
+            android:id="@+id/goal_description"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/goal_description" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/goal_description" />
+        android:progress="1" />
 
 </LinearLayout>
