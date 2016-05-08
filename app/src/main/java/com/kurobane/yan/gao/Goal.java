@@ -1,8 +1,5 @@
 package com.kurobane.yan.gao;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 public class Goal {
@@ -12,7 +9,7 @@ public class Goal {
     private Boolean isFinished;
     private Boolean isPunished;
 
-    private HashMap<String, Boolean> tasks;
+    private HashMap<String, Integer> tasks;
 
     public Goal() {
     }
@@ -46,11 +43,11 @@ public class Goal {
         this.description = description;
     }
 
-    public HashMap<String, Boolean> getTasks() {
+    public HashMap<String, Integer> getTasks() {
         return tasks;
     }
 
-    public void setTasks(HashMap<String, Boolean> tasks) {
+    public void setTasks(HashMap<String, Integer> tasks) {
         this.tasks = tasks;
     }
 
@@ -78,24 +75,5 @@ public class Goal {
         this.isPunished = isPunished > 0;
     }
 
-    public void saveTasks() {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(getId()));
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-
-            objectOutputStream.writeObject(getTasks());
-            objectOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void loadTasks() {
-
-    }
-
-    public void deleteTasks() {
-
-    }
 
 }

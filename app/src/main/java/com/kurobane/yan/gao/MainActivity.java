@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +23,28 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        populateUsersList();
+        final DbHelper dbHelper = DbHelper.getInstance(this);
+        final ArrayList<Goal> goals = dbHelper.getAllGoals();
+
+        final GoalsAdapter adapter = new GoalsAdapter(this, goals);
+
+        Log.d("goals", goals.toString());
+
+        ListView listView = (ListView) findViewById(R.id.goals_list);
+        if (listView != null) {
+            listView.setAdapter(adapter);
+        }
+
+//        populateUsersList();
+        HashMap<String, Integer> hm = new HashMap<>();
+        hm.put("Start", 1);
+        hm.put("Second", 0);
+        final Goal test = new Goal();
+        test.setName("Test");
+        test.setDescription("Descr");
+        test.setIsFinished(0);
+        test.setIsPunished(0);
+        test.setTasks(hm);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
@@ -31,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    //dbHelper.deleteGoal(goals.get(0));
+                    //dbHelper.addGoal(test);
+                    dbHelper.deleteGoal(test);
                 }
             });
         }
