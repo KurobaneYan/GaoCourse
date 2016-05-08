@@ -10,10 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,21 +31,19 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("goals", goals.toString());
 
-        ListView listView = (ListView) findViewById(R.id.goals_list);
+        final ListView listView = (ListView) findViewById(R.id.goals_list);
         if (listView != null) {
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Goal goal = (Goal) listView.getItemAtPosition(position);
+                    Log.d("onClick", goal.getTasks().toString());
+                }
+            });
         }
 
-//        populateUsersList();
-        HashMap<String, Integer> hm = new HashMap<>();
-        hm.put("Start", 1);
-        hm.put("Second", 0);
-        final Goal test = new Goal();
-        test.setName("Test");
-        test.setDescription("Descr");
-        test.setIsFinished(0);
-        test.setIsPunished(0);
-        test.setTasks(hm);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
@@ -54,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    //dbHelper.deleteGoal(goals.get(0));
-                    //dbHelper.addGoal(test);
                     Intent intent = new Intent(getApplicationContext(), AddGoalActivity.class);
                     startActivity(intent);
                 }
@@ -73,23 +69,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
-    private void populateUsersList() {
-
-        ArrayList<Goal> goals = new ArrayList<>();
-        for (int i = 0; i < 20; ++i) {
-            goals.add(new Goal("Goal " + String.valueOf(i), "Some description"));
-        }
-
-        GoalsAdapter adapter = new GoalsAdapter(this, goals);
-
-        Log.d("Goals", goals.toString());
-
-        ListView listView = (ListView) findViewById(R.id.goals_list);
-        if (listView != null) {
-            listView.setAdapter(adapter);
-        }
     }
 
 }
