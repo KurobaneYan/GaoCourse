@@ -14,4 +14,6 @@
     <string name="task_checkbox">Task checkbox</string>
     <string name="detail_edit">Edit</string>
     <string name="detail_delete">Delete</string>
+    <string name="title_activity_edit_goal">EditGoalActivity</string>
+    <string name="edit_save">Save</string>
 </resources>

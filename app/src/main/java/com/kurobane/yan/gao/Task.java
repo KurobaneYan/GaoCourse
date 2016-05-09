@@ -36,4 +36,9 @@ public class Task {
         }
         this.value = 0;
     }
+
+    @Override
+    public String toString() {
+        return getName() + " " + String.valueOf(getValue());
+    }
 }

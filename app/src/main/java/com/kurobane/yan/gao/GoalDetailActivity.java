@@ -7,9 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 public class GoalDetailActivity extends AppCompatActivity {
     DbHelper dbHelper;
@@ -33,6 +32,12 @@ public class GoalDetailActivity extends AppCompatActivity {
             goal = dbHelper.getGoal(goalName);
             showGoal(goal);
 
+            TasksAdapter adapter = new TasksAdapter(this, goal);
+            final ListView listView = (ListView) findViewById(R.id.tasks_list);
+            if (listView != null) {
+                listView.setAdapter(adapter);
+            }
+
             setupButtons();
         }
 
@@ -44,14 +49,11 @@ public class GoalDetailActivity extends AppCompatActivity {
     private void showGoal(Goal goal) {
         TextView goalName = (TextView) findViewById(R.id.detail_goal_name);
         TextView goalDescription = (TextView) findViewById(R.id.detail_goal_description);
-        TextView goalTasks = (TextView) findViewById(R.id.detail_goal_tasks);
 
-        if ((goalName != null) && (goalDescription != null) && (goalTasks != null)) {
+        if ((goalName != null) && (goalDescription != null)) {
             goalName.setText(goal.getName());
             goalDescription.setText(goal.getDescription());
 
-            ArrayList<Task> tasks = goal.getTasks();
-            goalTasks.setText(tasks.toString());
         }
     }
 
@@ -63,7 +65,9 @@ public class GoalDetailActivity extends AppCompatActivity {
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("ReplaceEdit!", edit.toString());
+                    Intent intent = new Intent(getApplicationContext(), EditGoalActivity.class);
+                    intent.putExtra("goalName", goalName);
+                    startActivity(intent);
 
                 }
             });

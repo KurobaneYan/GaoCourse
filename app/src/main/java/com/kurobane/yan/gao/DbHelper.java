@@ -241,6 +241,21 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateTask(Task task) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TASK_KEY, task.getName());
+        values.put(TASK_VALUE, task.getValue());
+
+        db.update(TASKS_TABLE_NAME,
+                values,
+                TASK_KEY + " = ?",
+                new String[] { task.getName() });
+
+        db.close();
+    }
+
     public void deleteTasks(Goal goal) {
         SQLiteDatabase db = this.getWritableDatabase();
 
