@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GoalDetailActivity extends AppCompatActivity {
     DbHelper dbHelper;
@@ -34,7 +33,6 @@ public class GoalDetailActivity extends AppCompatActivity {
             goal = dbHelper.getGoal(goalName);
             showGoal(goal);
 
-            //showTasks(goal);
             setupButtons();
         }
 
@@ -52,24 +50,9 @@ public class GoalDetailActivity extends AppCompatActivity {
             goalName.setText(goal.getName());
             goalDescription.setText(goal.getDescription());
 
-            HashMap<String, Integer> hashMap = goal.getTasks();
-            goalTasks.setText(hashMap.toString());
+            ArrayList<Task> tasks = goal.getTasks();
+            goalTasks.setText(tasks.toString());
         }
-    }
-
-    private void showTasks(Goal goal) {
-//        ListView listView = (ListView) findViewById(R.id.tasks_list);
-        HashMap<String, Integer> goalTasks = goal.getTasks();
-
-        ArrayList<HashMap<String, Integer>> tasks = new ArrayList<>();
-
-        for (String key : goalTasks.keySet()) {
-            HashMap<String, Integer> temp = new HashMap<>();
-            temp.put(key, goalTasks.get(key));
-            tasks.add(temp);
-        }
-
-        Log.d("TEST!!!", tasks.toString());
     }
 
     private void setupButtons() {

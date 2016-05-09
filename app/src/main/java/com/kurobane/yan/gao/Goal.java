@@ -1,6 +1,6 @@
 package com.kurobane.yan.gao;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Goal {
     private int id;
@@ -9,7 +9,7 @@ public class Goal {
     private Boolean isFinished;
     private Boolean isPunished;
 
-    private HashMap<String, Integer> tasks;
+    private ArrayList<Task> tasks;
 
     public Goal() {
         setIsFinished(0);
@@ -47,11 +47,11 @@ public class Goal {
         this.description = description;
     }
 
-    public HashMap<String, Integer> getTasks() {
+    public ArrayList<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(HashMap<String, Integer> tasks) {
+    public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 

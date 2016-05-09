@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DbHelper extends SQLiteOpenHelper {
     private static DbHelper instance = null;
@@ -182,25 +181,23 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void addTasks(Goal goal) {
-        HashMap<String, Integer> hashMap = goal.getTasks();
+        ArrayList<Task> tasks = goal.getTasks();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        for (String key : hashMap.keySet()) {
-            //int value = hashMap.get(key);
-
+        for (Task task : tasks) {
             ContentValues values = new ContentValues();
-            values.put(TASK_KEY, key);
-            values.put(TASK_VALUE, hashMap.get(key));
+            values.put(TASK_KEY, task.getName());
+            values.put(TASK_VALUE, task.getValue());
             values.put(TASK_PARENT_KEY, goal.getName());
             db.insert(TASKS_TABLE_NAME, null, values);
         }
 
         db.close();
 
-        Log.d("addTasks()", hashMap.toString());
+        Log.d("addTasks()", tasks.toString());
     }
 
-    public HashMap<String, Integer> getTasks(String parent_name) {
+    public ArrayList<Task> getTasks(String parent_name) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TASKS_TABLE_NAME,
@@ -211,41 +208,40 @@ public class DbHelper extends SQLiteOpenHelper {
                 null,
                 null);
 
-        HashMap<String, Integer> hashMap = new HashMap<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         if (cursor.moveToFirst()){
             do {
-                hashMap.put(cursor.getString(1), cursor.getInt(2));
+                tasks.add(new Task(cursor.getString(1), cursor.getInt(2)));
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
 
-        Log.d("getTasks()", hashMap.toString());
-        return  hashMap;
+        Log.d("getTasks()", tasks.toString());
+        return  tasks;
     }
 
     public void updateTasks(Goal goal) {
-        HashMap<String, Integer> hashMap = goal.getTasks();
+        ArrayList<Task> tasks = goal.getTasks();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        for (String key : hashMap.keySet()) {
+        for (Task task : tasks) {
             ContentValues values = new ContentValues();
-            values.put(TASK_KEY, key);
-            values.put(TASK_VALUE, hashMap.get(key));
+            values.put(TASK_KEY, task.getName());
+            values.put(TASK_VALUE, task.getValue());
 
-            int i = db.update(TASKS_TABLE_NAME,
+            db.update(TASKS_TABLE_NAME,
                     values,
                     TASK_KEY + " = ?",
-                    new String[] { key });
+                    new String[] { task.getName() });
         }
 
         db.close();
     }
 
     public void deleteTasks(Goal goal) {
-        HashMap<String, Integer> hashMap = goal.getTasks();
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(TASKS_TABLE_NAME,

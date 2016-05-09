@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class AddGoalActivity extends AppCompatActivity {
 
@@ -54,15 +54,15 @@ public class AddGoalActivity extends AppCompatActivity {
             goal = new Goal();
             goal.setName(String.valueOf(goalName.getText()));
             goal.setDescription(String.valueOf(goalDescription.getText()));
-            HashMap<String, Integer> hashMap = new HashMap<>();
+            ArrayList<Task> tasksArray = new ArrayList<>();
             String tasks = String.valueOf(goalTasks.getText()) + "\n";
             for (String key : tasks.split("\\n")) {
                 if (!key.equals("")) {
-                    hashMap.put(key, 0);
+                    tasksArray.add(new Task(key));
                 }
             }
 
-            goal.setTasks(hashMap);
+            goal.setTasks(tasksArray);
         }
 
         return goal;
