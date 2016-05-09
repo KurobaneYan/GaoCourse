@@ -38,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Goal goal = (Goal) listView.getItemAtPosition(position);
-                    Log.d("onClick", goal.getTasks().toString());
+                    Log.d("onClick", goal.getName());
+
+                    Intent intent = new Intent(getApplicationContext(), GoalDetailActivity.class);
+                    intent.putExtra("goalName", goal.getName());
+                    startActivity(intent);
                 }
             });
         }

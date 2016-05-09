@@ -11,4 +11,7 @@
     <string name="add_goal_button">Add Goal</string>
     <string name="title_activity_goal_detail">Goal Details</string>
     <string name="detail_tasks">Tasks:</string>
+    <string name="task_checkbox">Task checkbox</string>
+    <string name="detail_edit">Edit</string>
+    <string name="detail_delete">Delete</string>
 </resources>
